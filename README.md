@@ -1,6 +1,6 @@
 # Infernet Node Deployment
 
-Deploy a cluster of heterogenous [Infernet](https://github.com/ritual-net/infernet-node) nodes on Amazon Web Services (AWS) and / or Google Cloud Platform (GCP), using [Terraform](https://www.terraform.io/) for infrastructure procurement and [Docker compose](https://docs.docker.com/compose/) for deployment.
+Deploy a cluster of heterogeneous [Infernet](https://github.com/ritual-net/infernet-node) nodes on Amazon Web Services (AWS) and / or Google Cloud Platform (GCP), using [Terraform](https://www.terraform.io/) for infrastructure procurement and [Docker compose](https://docs.docker.com/compose/) for deployment.
 
 
 ### Setup
@@ -18,7 +18,7 @@ Deploy a cluster of heterogenous [Infernet](https://github.com/ritual-net/infern
 
 #### Infernet Router:
 The Infernet Router REST server is configured automatically by Terraform. However, if you plan to use it, you need to understand its implications:
-> **IMPORTANT:** When configuring a heterogeneous node cluster (i.e. `0.json`, `1.json`, etc. are not identical), container IDs should be reserved for a **unique container setup at the cluster level, i.e. across nodes (and thus `.json` files)**. That is becuase the router uses container IDs to make routing decisions between services running across the cluster.
+> **IMPORTANT:** When configuring a heterogeneous node cluster (i.e. `0.json`, `1.json`, etc. are not identical), container IDs should be reserved for a **unique container setup at the cluster level, i.e. across nodes (and thus `.json` files)**. That is because the router uses container IDs to make routing decisions between services running across the cluster.
 >
 > _Example:_ Consider nodes A and B, each running a single LLM inference container; node A runs `image1`, and node B runs `image2`. If we set `id: "llm-inference"` in both containers (`containers[0].id` attribute in `0.json`, `1.json`), the router will be **unable to disambiguate** between the two services, and will consider them interchangeable, _which they are not._ Any requests for `"llm-inference"` will be routed to either container, which is an error.
 >
